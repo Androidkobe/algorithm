@@ -8,6 +8,22 @@ class ReverseLinkedList2 {
 
     /**
      * 思路
+     *
+     * 确立小范围转换
+     *
+     *
+     *  Node temp = next.next;
+     *             next.next = cur;
+     *             cur.next = temp;
+     *             last.next = next;
+     *
+     *  //设置翻转的每一个参数
+     *             last = cur;//上的末尾节点
+     *             cur = temp;//当前节点
+     *             if(cur != null){
+     *                 next = cur.next;//下一个节点
+     *             }
+     *
      */
 
     public static void main(String[] args) {
@@ -52,28 +68,24 @@ class ReverseLinkedList2 {
         if (head == null || head.next == null) {
             return head;
         }
-        Node pre = new Node();
         Node cur = head;
-        Node next = head = cur.next;
-        Node next2 = cur.next.next;
+        Node next = cur.next;
+        Node last = new Node();
+        Node HEAD = next;
 
         while(cur != null && next != null){
-            pre.next = next;
+            Node temp = next.next;
             next.next = cur;
-            cur.next = next2;
-            pre = cur;
+            cur.next = temp;
+            last.next = next;
 
-            cur = next2;
-
-            if(cur != null && cur.next != null){
-                next = cur.next;
-                next2 = cur.next.next;
-            }else{
-                next = null;
-                next2 = null;
+            //设置翻转的每一个参数
+            last = cur;//上的末尾节点
+            cur = temp;//当前节点
+            if(cur != null){
+                next = cur.next;//下一个节点
             }
         }
-
-        return head;
+        return HEAD;
     }
 }
